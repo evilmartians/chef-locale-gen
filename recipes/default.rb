@@ -32,14 +32,15 @@ if platform?('ubuntu') && node['lsb']['release'].to_i >= 12
       mode '0755'
       action :create
     end
+  end
 else
   node.set['localegen']['locale_file'] = '/etc/locale.gen'
 end
 
 # declare the execute['local-gen'] before notifying it.
 execute 'locale-gen' do
-    command 'locale-gen'
-    action :nothing
+  command 'locale-gen'
+  action :nothing
 end
 
 file node['localegen']['locale_file'] do
