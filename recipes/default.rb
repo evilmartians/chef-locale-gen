@@ -19,13 +19,13 @@
 #
 
 if platform?('ubuntu') && node['lsb']['release'].to_i >= 12
-  node.set['localegen']['locale_file'] = '/var/lib/locales/supported.d/local'
+  node.default['localegen']['locale_file'] = '/var/lib/locales/supported.d/local'
 
   # This is a hack but it ensures every dir is created with fine rights.
-  %w(
+  %w[
     /var/lib/locales/
     /var/lib/locales/supported.d/
-  ).each do |dir|
+  ].each do |dir|
     directory dir do
       owner 'root'
       group 'root'
@@ -34,7 +34,7 @@ if platform?('ubuntu') && node['lsb']['release'].to_i >= 12
     end
   end
 else
-  node.set['localegen']['locale_file'] = '/etc/locale.gen'
+  node.default['localegen']['locale_file'] = '/etc/locale.gen'
 end
 
 # declare the execute['local-gen'] before notifying it.
